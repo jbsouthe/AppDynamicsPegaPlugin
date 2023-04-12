@@ -24,7 +24,9 @@ public class UISectionEntryPointInterceptor extends AGenericInterceptor {
 
     @Override
     public Object onMethodBegin(Object object, String className, String methodName, Object[] param) {
+        getLogger().info(String.format("onMethodBegin %s.%s( %d params )", className, methodName, (param!=null ? param.length : 0)));
         Transaction serviceEndpoint = AppdynamicsAgent.startTransactionAndServiceEndPoint(className, null, className, EntryTypes.POJO, false );
+        getLogger().info(String.format("Service Endpoint Created: %s",serviceEndpoint.getUniqueIdentifier()));
         return serviceEndpoint;
     }
 
