@@ -88,7 +88,7 @@ public class PegaExecutableInterceptor extends AGenericInterceptor {
         String activityClassName = getString( params[0], "pyClassName" );
         transaction.collectData("Activity-ClassName-postlogic", activityClassName, snapshotDataScopes);
         if( exception != null ) transaction.markAsError( exception.getMessage() );
-        //transaction.end(); we won't end it unless we know we created it
+        transaction.end();
     }
 
     protected Object getReflectiveObject(Object object, IReflector method, Object... args) {
