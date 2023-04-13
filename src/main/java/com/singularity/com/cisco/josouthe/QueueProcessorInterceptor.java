@@ -31,8 +31,12 @@ public class QueueProcessorInterceptor extends AGenericInterceptor {
         if( param == null || param.length == 0 ) return "";
         StringBuilder sb = new StringBuilder();
         for( int i =0 ; i< param.length; i++ ) {
-            sb.append( param[i].getClass().getCanonicalName() );
-            sb.append(" ").append(String.valueOf(param[i]));
+            if( param[i] == null ) {
+                sb.append("notSure null");
+            } else {
+                sb.append(param[i].getClass().getCanonicalName());
+                sb.append(" ").append(String.valueOf(param[i]));
+            }
             if( i < param.length ) sb.append(", ");
         }
         return sb.toString();

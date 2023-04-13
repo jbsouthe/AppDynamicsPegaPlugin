@@ -47,7 +47,7 @@ public class PegaExecutableInterceptor extends AGenericInterceptor {
 
     @Override
     public Object onMethodBegin(Object object, String className, String methodName, Object[] param) {
-        getLogger().info(String.format("onMethodBegin %s.%s( %d params )", className, methodName, (param!=null ? param.length : 0)));
+        getLogger().info(String.format("onMethodBegin %s.%s( %s )", className, methodName, paramsToString(param)));
         Object aKeysStringMap = param[0];
         Object aNewPrimaryPageClipboardPage = param[1];
         Object aNewParamParameterPage = param[2];
@@ -80,6 +80,21 @@ public class PegaExecutableInterceptor extends AGenericInterceptor {
         transaction.collectData("Activity-ClassName-prelogic", activityClassName, snapshotDataScopes);
 
         return transaction;
+    }
+
+    private Object paramsToString(Object[] param) {
+        if( param == null || param.length == 0 ) return "";
+        StringBuilder sb = new StringBuilder();
+        for( int i =0 ; i< param.length; i++ ) {
+            if( param[i] == null ) {
+                sb.append("notSure null");
+            } else {
+                sb.append(param[i].getClass().getCanonicalName());
+                sb.append(" ").append(String.valueOf(param[i]));
+            }
+            if( i < param.length ) sb.append(", ");
+        }
+        return sb.toString();
     }
 
     @Override
